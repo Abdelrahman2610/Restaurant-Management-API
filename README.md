@@ -17,7 +17,7 @@
 - **Restaurant Managment:**  Create, list (cuisine filter), fetch by ID or slug, and find nearby restaurants within a configurale radius using MongoDb GeoSpatial queries.
 - **User Managment:** Create users with favoutite cuisines and follow restaurants.
 - **Smart Recommendations:** MongoDB aggregation pipeline recommending restaurants based on shared cuisine prefrences between users.
-- **Full Swagger Docs:** All endpoints documented and testable at '/api'
+- **Full Swagger Docs:** All endpoints documented and testable at `/api`
 - **Input Validation:** Every endpoint validated with 'class-validator' and NestJS 'ValidationPipe'
 
 ----
@@ -31,7 +31,7 @@
 | Database | MongoDB |
 | ODM | MongoDB |
 | Validation | class-validator + class-transformer |
-| Documentation | Swagger / OpenAPI ('@nestjs/swagger') |
+| Documentation | Swagger / OpenAPI ( `@nestjs/swagger` ) |
 | Config | '@nestjs/config' + dotenv |
 
 ----
@@ -45,22 +45,22 @@
 
 ### Installation
 
-'''bash
+```bash
 npm install
-'''
+```
 
 ### ENvironment Setup
 
-Create a '.env' file in the project root
+Create a `.env` file in the project root
 
-'''dotenv
+```dotenv
 MONGODB_URI=mongodb://localhost:27017/restaurant-db
 PORT=3000
-'''
+```
 
 ### Running the App
 
-'''bash
+```bash
 # development
 npm run start
 
@@ -69,15 +69,15 @@ npm run start:dev
 
 # production
 npm run start:prod
-'''
+```
 
 ### API Documentation
 
 Once running, open your browser at:
 
-'''
+```
 http://localhost:3000/api"
-'''
+```
 
 ----
 
@@ -87,24 +87,24 @@ http://localhost:3000/api"
 
 | Method | Endpoint| Description |
 |---|---|---|
-| 'POST' | '/restaurants' | Create a new restaurant |
-| 'GET' | '/restaurants' | List all restaurants |
-| 'GET' | '/restaurants/nearby' | Find restaurants within radius |
-| 'GET' | '/restaurants/:idOrSlug' | Get restaurant by MongoDB ObjectId or slug |
+| `POST` | `/restaurants` | Create a new restaurant |
+| `GET` | `/restaurants` | List all restaurants |
+| `GET` | `/restaurants/nearby` | Find restaurants within radius |
+| `GET` | `/restaurants/:idOrSlug` | Get restaurant by MongoDB ObjectId or slug |
 
 ### Users
 
 | Method | Endpoint| Description |
 |---|---|---|
-| 'POST' | '/users' | Create a new user |
-| 'GET' | '/users/:userId/follow' | Follow a restaurant |
-| 'GET' | '/users/:userId/recommendations' | Get restaurant recommendations |
+| `POST` | `/users` | Create a new user |
+| `GET` | `/users/:userId/follow` | Follow a restaurant |
+| `GET` | `/users/:userId/recommendations` | Get restaurant recommendations |
 
 ----
 
 ## Architecture
 
-'''
+```
 src/
 ├── main.ts                          # Bootstrap, global pipes, Swagger setup
 ├── app.module.ts                    # Root module — MongoDB + env config
@@ -125,16 +125,16 @@ src/
     ├── users.controller.ts          # Route handlers + Swagger decorators
     ├── users.service.ts             # Business logic + aggregation pipeline
     └── users.module.ts              # Feature module
-'''
+```
 
 ### Key Design Decisions 
 
 **Recommendation Pipeline** Implemented as a single MongoDB aggregation pipeline following the exact 3 steps:
 1. Find users sharing >= 1 favourite cuisine with the target user.
 2. Fetch all Follow records from those similar users -> hydrate Restaurant documents.
-3. Project 'similarUsers' + 'recommendedRestaurants' in the response.
+3. Project `similarUsers` + `recommendedRestaurants` in the response.
 
-**GeoSpatial Search** Uses '$nearSphere' with a '2dsphere' index for accurate spherical distance calculations. Coordinates follow the GeoJSON convention: [longitude, latitude].
+**GeoSpatial Search** Uses `$nearSphere` with a `2dsphere` index for accurate spherical distance calculations. Coordinates follow the GeoJSON convention: [longitude, latitude].
 
 **Slug Generation** Auto generated from english name if not supplied, ensuring the slug feild is always populated.
 
@@ -144,13 +144,13 @@ src/
 
 ## Supported Cuisines
 
-'Fried', 'Asian', 'Burgers', 'Pizza', 'Sushi', 'Mexican', 'Italian', 'Indian', 'Seafood', 'Vegan', and 'Vegetarian'.
+`Fried`, `Asian`, `Burgers`, `Pizza`, `Sushi`, `Mexican`, `Italian`, `Indian`, `Seafood`, `Vegan`, and `Vegetarian`.
 
 ----
 
 ## Running Tests
 
-'''bash
+```bash
 # unit tests
 npm run test
 
@@ -159,6 +159,6 @@ npm run test:e2e
 
 # test coverage
 npm run test:cov
-'''
+```
 
 ----
